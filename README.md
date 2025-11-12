@@ -1,189 +1,173 @@
-# BharatBill — GST-ready invoicing in INR
+# <div align="center">🇮🇳 BharatBill</div>
 
-An India-first invoicing and client payments system for freelancers and small businesses. Create invoices, track payments (incl. UPI/UTR), share PDFs with GSTIN, and give clients a portal to view and update payment status.
+<div align="center">
+  <strong>The Professional GST Invoicing & Client Management Ecosystem</strong>
+</div>
 
-## Features
+<div align="center">
+  <p align="center">
+    <a href="https://invoice-generator-and-tracker.vercel.app/">
+      <img src="https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel" alt="Live Demo">
+    </a>
+    <a href="https://github.com/Abiram08/Invoice-Generator-Tracker">
+      <img src="https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github" alt="GitHub Repo">
+    </a>
+    <img src="https://img.shields.io/badge/Backend-Railway-6e3cbc?style=for-the-badge&logo=railway" alt="Backend Railway">
+    <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License MIT">
+  </p>
+</div>
 
-### 🎯 Core Functionality
-- **User Management**: Separate dashboards for freelancers and businesses
-- **Invoice Creation**: Professional invoice generation with customizable templates
-- **Client Management**: Complete client database with contact information
-- **Payment Tracking**: Monitor payments, due dates, and outstanding amounts
-- **Dashboard Analytics**: Revenue insights, charts, and performance metrics
-- **PDF Generation**: Export invoices to PDF format
-- **Email Integration**: Send invoices directly to clients
-- **Recurring Invoices**: Set up automatic recurring billing
+---
 
-### 💼 For Freelancers
-- Personal branding with logo upload
-- Hourly rate tracking
-- Skills and profession management
-- Simple client management
-- Quick invoice generation
+## 📖 Table of Contents
+- [🔍 About the Project](#-about-the-project)
+- [⚙️ How it Works](#️-how-it-works)
+- [✨ Core Modules](#-core-modules)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📂 Project Architecture](#-project-architecture)
+- [🚀 Quick Start](#-quick-start)
+- [🤝 Contributing](#-contributing)
 
-### 🏢 For Businesses
-- Company information management
-- Multiple user roles
-- Advanced client management
-- Business analytics
-- Tax management
-- Bank details integration
+---
 
-### 📊 Analytics & Reports
-- Monthly/quarterly revenue charts
-- Invoice status breakdown
-- Client analytics
-- Overdue tracking
-- Payment history
-- Export capabilities
+## 🔍 About the Project
 
-## Tech Stack
+**BharatBill** is built to solve a critical pain point for the Indian freelance and small business community: **Professionalism meets Localization.** 
 
-### Frontend
-- **React 18** - Modern UI library
-- **React Router** - Navigation and routing
-- **React Hook Form** - Form management
-- **TanStack Query** - Server state management
-- **Tailwind CSS** - Utility-first CSS framework
-- **Recharts** - Data visualization
-- **React Icons** - Icon library
-- **React Hot Toast** - Notifications
-- **Date-fns** - Date manipulation
-- **Axios** - HTTP client
+Standard global invoicing tools often lack support for GSTIN, INR symbols, and UPI-based payment tracking. BharatBill bridges this gap by providing an end-to-end platform where businesses can manage clients, generate beautiful GST-compliant PDFs, and track payments through a dedicated portal.
 
-### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Mongoose** - ODM for MongoDB
-- **JWT** - Authentication
-- **Bcrypt** - Password hashing
-- **Multer** - File upload handling
-- **Nodemailer** - Email functionality
-- **PDF-lib** - PDF generation
-- **Puppeteer** - Web scraping and PDF generation
+---
 
-## Project Structure
+## ⚙️ How it Works
 
-```
-invoice/
-├── backend/                 # Node.js backend
-│   ├── models/             # Database models
-│   ├── routes/             # API routes
-│   ├── middleware/         # Custom middleware
-│   └── server.js           # Entry point
-├── src/                    # React frontend
-│   ├── components/         # Reusable components
-│   ├── pages/              # Page components
-│   ├── context/            # React context
-│   ├── utils/              # Utility functions
-│   └── App.js              # Main app component
-└── public/                 # Static assets
+BharatBill operates as a centralized hub connecting **Businesses** (Service Providers) and their **Clients**.
+
+### � The System Flow
+
+```mermaid
+sequenceDiagram
+    participant Biz as Business / Freelancer
+    participant DB as MongoDB Atlas
+    participant Srv as Node.js Backend
+    participant Client as Client Portal
+
+    Biz->>Srv: Registers Business & Sets UPI/GST Details
+    Biz->>Srv: Adds New Client to Database
+    Biz->>Srv: Creates Invoice (Selects Template)
+    Srv->>Srv: Renders PDF using Puppeteer
+    Srv->>DB: Saves Invoice Data
+    Srv-->>Biz: Notifies "Invoice Created"
+    
+    Client->>Srv: Logs in to Client Portal
+    Client->>Srv: Views/Downloads Invoice PDF
+    Client->>Srv: Uploads Payment Proof (UTR/Transaction ID)
+    Srv->>DB: Updates Invoice Status to "Pending Verification"
+    
+    Biz->>Srv: Verifies Payment in Dashboard
+    Srv->>DB: Marks Invoice as "Paid"
+    Srv-->>Client: Confirmation of Payment Received
 ```
 
-## Setup Instructions
+---
+
+## ✨ Core Modules
+
+### 1. 💼 Business Dashboard
+The nerves of the application. Business users (Freelancers or Agencies) get a high-level overview of their financial health.
+- **Real-time Analytics**: Bar charts and line graphs (via Recharts) showing monthly revenue vs. outstanding payments.
+- **Product Management**: Maintain a catalog of services/products with predefined rates and tax categories.
+
+### 2. 📄 Invoice Engine
+A sophisticated PDF generator that doesn't just "print a page."
+- **Multiple Templates**: Switch between Standard, Modern, Minimal, Corporate, and Creative styles.
+- **GST Compliance**: Automatic calculation of CGST, SGST, and IGST based on client location.
+- **Automated PDFs**: Uses a headless Chromium instance (Puppeteer) to ensure pixel-perfect rendering from HTML templates.
+
+### 3. 👥 Client Management & Portal
+Instead of sending static emails, give your clients a home.
+- **Self-Signup**: Clients can request to be added to your business database.
+- **Payment History**: A complete ledger for clients to see what they've paid and what's remaining.
+- **Document Hub**: A centralized place for clients to download current and past invoices.
+
+### 4. �️ Authentication & Security
+- **JWT (JSON Web Tokens)**: Stateless authentication for both business users and clients.
+- **Role-Based Access**: Strict separation between Business features and Client Portal data.
+- **Secure Hashing**: Bcrypt integration ensuring user passwords never leave the database as plain text.
+
+---
+
+## 🛠️ Tech Stack
+
+| Domain | Technolgies |
+| :--- | :--- |
+| **Frontend** | React 18, React Router 6, Tailwind CSS, TanStack Query (Server State), React Hook Form |
+| **Backend** | Node.js, Express.js, Puppeteer (PDF Engine), Nodemailer |
+| **Auth** | JWT (Stateless), Bcryptjs |
+| **Database** | MongoDB Atlas, Mongoose ODM |
+| **Deployment** | Vercel (Frontend), Railway (Backend & Database) |
+
+---
+
+## � Project Architecture
+
+```bash
+z:\Projects\Invoice\
+├── backend/                # The REST API Layer
+│   ├── models/             # Schema definitions for Data Persistence
+│   ├── routes/             # Controller logic for all endpoints
+│   ├── middleware/         # Auth, Helmet Security, Rate Limiting
+│   └── public/             # Storage for uploaded logos/files
+├── src/                    # The Client Application
+│   ├── pages/              # High-level components (Analytics, Clients, Invoices)
+│   ├── components/         # Reusable UI Patterns (Layout, Tables, Forms)
+│   ├── context/            # React Context for global state (Auth, UI)
+│   └── utils/              # Calculation helpers & API interceptors
+└── public/                 # Manifest, Index.html, and Static Assets
+```
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (local or MongoDB Atlas)
-- npm or yarn package manager
+- Node.js installed locally.
+- A MongoDB cluster (Local or Atlas).
 
-### Backend Setup
+### Local Setup
 
-1. **Navigate to backend directory**
+1. **Clone & Install**
    ```bash
-   cd backend
+   git clone https://github.com/Abiram08/Invoice-Generator-Tracker.git
+   cd Invoice-Generator-Tracker
+   npm install && cd backend && npm install
    ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
+2. **Backend Config (`backend/.env`)**
+   ```env
+   PORT=5000
+   MONGODB_URI=your_mongodb_uri
+   JWT_SECRET=your_secret_key
+   FRONTEND_ORIGIN=http://localhost:3000
    ```
 
-3. **Environment Configuration**
-   Create a `.env` file in the backend directory with your MongoDB connection and other settings.
-
-4. **Start the backend server**
-   ```bash
-   npm run dev
+3. **Frontend Config (`.env`)**
+   ```env
+   REACT_APP_API_URL=http://localhost:5000/api
    ```
 
-### Frontend Setup
-
-1. **Install dependencies**
+4. **Run**
    ```bash
-   npm install --legacy-peer-deps
-   ```
-
-2. **Start the development server**
-   ```bash
+   # Window 1 (Backend)
+   cd backend && npm run dev
+   # Window 2 (Frontend)
    npm start
    ```
 
-## API Endpoints
+---
 
-### Authentication
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
-- `GET /api/auth/me` - Get current user
+<div align="center">
+  <h3>Professional. Precise. Powerful.</h3>
+  <p>BharatBill — Empowering Indian Small Businesses</p>
+</div>
 
-### Clients
-- `GET /api/clients` - Get all clients
-- `POST /api/clients` - Create new client
-- `PUT /api/clients/:id` - Update client
-- `DELETE /api/clients/:id` - Delete client
 
-### Invoices
-- `GET /api/invoices` - Get all invoices
-- `POST /api/invoices` - Create new invoice
-- `PUT /api/invoices/:id` - Update invoice
-- `DELETE /api/invoices/:id` - Delete invoice
-- `POST /api/invoices/:id/payment` - Record payment
-
-### Dashboard
-- `GET /api/dashboard/overview` - Dashboard overview data
-- `GET /api/dashboard/analytics/revenue` - Revenue analytics
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies for both frontend and backend
-3. Set up MongoDB database
-4. Configure environment variables
-5. Start both servers
-6. Register as either a freelancer or business user
-7. Start creating invoices!
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-Built with ❤️ for freelancers and small businesses worldwide.
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
