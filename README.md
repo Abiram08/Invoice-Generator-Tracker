@@ -1,4 +1,4 @@
-# <div align="center">🇮🇳 BharatBill</div>
+# <div align="center">BharatBill</div>
 
 <div align="center">
   <strong>The Professional GST Invoicing & Client Management Ecosystem</strong>
@@ -12,7 +12,7 @@
     <a href="https://github.com/Abiram08/Invoice-Generator-Tracker">
       <img src="https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github" alt="GitHub Repo">
     </a>
-    <img src="https://img.shields.io/badge/Backend-Railway-6e3cbc?style=for-the-badge&logo=railway" alt="Backend Railway">
+    <img src="https://img.shields.io/badge/Backend-Vercel-000000?style=for-the-badge&logo=vercel" alt="Backend Vercel">
     <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License MIT">
   </p>
 </div>
@@ -42,14 +42,14 @@ Standard global invoicing tools often lack support for GSTIN, INR symbols, and U
 
 BharatBill operates as a centralized hub connecting **Businesses** (Service Providers) and their **Clients**.
 
-### � The System Flow
+### 🔄 The System Flow
 
 ```mermaid
 sequenceDiagram
     participant Biz as Business / Freelancer
     participant DB as MongoDB Atlas
-    participant Srv as Node.js Backend
-    participant Client as Client Portal
+    participant Srv as Node.js Backend (Vercel)
+    participant Client as Client Portal (Vercel)
 
     Biz->>Srv: Registers Business & Sets UPI/GST Details
     Biz->>Srv: Adds New Client to Database
@@ -89,7 +89,7 @@ Instead of sending static emails, give your clients a home.
 - **Payment History**: A complete ledger for clients to see what they've paid and what's remaining.
 - **Document Hub**: A centralized place for clients to download current and past invoices.
 
-### 4. �️ Authentication & Security
+### 4. 🛡️ Authentication & Security
 - **JWT (JSON Web Tokens)**: Stateless authentication for both business users and clients.
 - **Role-Based Access**: Strict separation between Business features and Client Portal data.
 - **Secure Hashing**: Bcrypt integration ensuring user passwords never leave the database as plain text.
@@ -101,22 +101,22 @@ Instead of sending static emails, give your clients a home.
 | Domain | Technolgies |
 | :--- | :--- |
 | **Frontend** | React 18, React Router 6, Tailwind CSS, TanStack Query (Server State), React Hook Form |
-| **Backend** | Node.js, Express.js, Puppeteer (PDF Engine), Nodemailer |
+| **Backend** | Node.js, Express.js (v4), JWT, Bcryptjs, Puppeteer, Nodemailer |
 | **Auth** | JWT (Stateless), Bcryptjs |
 | **Database** | MongoDB Atlas, Mongoose ODM |
-| **Deployment** | Vercel (Frontend), Railway (Backend & Database) |
+| **Deployment** | Vercel (Frontend & Backend) |
 
 ---
 
-## � Project Architecture
+## 📂 Project Architecture
 
 ```bash
 z:\Projects\Invoice\
-├── backend/                # The REST API Layer
+├── backend/                # The REST API Layer (Serverless Config for Vercel)
 │   ├── models/             # Schema definitions for Data Persistence
 │   ├── routes/             # Controller logic for all endpoints
 │   ├── middleware/         # Auth, Helmet Security, Rate Limiting
-│   └── public/             # Storage for uploaded logos/files
+│   └── server.js           # Entry point for Serverless functions
 ├── src/                    # The Client Application
 │   ├── pages/              # High-level components (Analytics, Clients, Invoices)
 │   ├── components/         # Reusable UI Patterns (Layout, Tables, Forms)
@@ -131,7 +131,7 @@ z:\Projects\Invoice\
 
 ### Prerequisites
 - Node.js installed locally.
-- A MongoDB cluster (Local or Atlas).
+- A MongoDB cluster (Atlas recommended for cloud deployment).
 
 ### Local Setup
 
@@ -163,11 +163,16 @@ z:\Projects\Invoice\
    npm start
    ```
 
+### ☁️ Vercel Deployment
+
+Both components are optimized for Vercel. 
+- **Frontend**: Automatically detected as a React application.
+- **Backend**: Configure the `backend` directory with a `vercel.json` if necessary, or deploy as a standalone serverless function.
+
 ---
 
 <div align="center">
   <h3>Professional. Precise. Powerful.</h3>
   <p>BharatBill — Empowering Indian Small Businesses</p>
 </div>
-
 
